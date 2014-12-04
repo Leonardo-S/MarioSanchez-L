@@ -24,10 +24,27 @@ game.PlayerEntity = me.Entity.extend ({
     update:function(delta){
         if(me.input.isKeyPressed("right")){
             this.body.vel.x += this.body.accel.x * me.timer.tick;
-            
+            this.flipX(false);
         }else{
             this.body.vel.x = 0;
         }    
+        if(me.input.isKeyPressed("left")){
+            this.body.vel.x -= this.body.accel.x * me.timer.tick;
+            this.flipX(true);
+        }else{
+            this.body.vel.x - 0;
+        } 
+        if (me.input.isKeyPressed('jump')) {   
+    if (!this.body.jumping && !this.body.falling) {
+        // set current vel to the maximum defined value
+        // gravity will then do the rest
+        this.body.vel.y = -this.body.maxVel.y * me.timer.tick;
+        // set the jumping flag
+        this.body.jumping = true;
+        // play some audio 
+        me.audio.play("jump");
+    }
+}
         
         me.collision.check(this, true, this.collideHandeler.bind(this) , true);
         
@@ -67,4 +84,24 @@ game.LevelTrigger = me.Entity.extend({
         me.levelDirector.loadLevel(this.level);
         me.state.current().resetPlayer(this.xSpawn, this.ySpawn);
     }
+});
+
+game.BadGuy = me.Entity.extend({
+    init: function(x, y, settings) {
+        this._super(me.Entity, 'init',[x, y, {
+                image:"slimey",
+                spritewidth:"60",
+                spriteheight:'28',
+                width: 60,
+                height: 28,
+                getShape: function(){
+                return (new me.Rect(0, 0, 00, 128)).toPolygon();
+            }
+        }]);
+    },
+    update: function(delta){
+        
+    }
+    
+    
 });

@@ -11,13 +11,15 @@ game.PlayScreen = me.ScreenObject.extend({
                 this.resetPlayer(400, 0);
                 
                 me.input.bindKey(me.input.KEY.RIGHT, "right");
+                me.input.bindKey(me.input.KEY.LEFT, "left");
+                me.input.bindKey(me.input.KEY.UP, "jump");
                 
+               
 
 		// add our HUD to the game world
 		this.HUD = new game.HUD.Container();
 		me.game.world.addChild(this.HUD);
 	},
-
 
 	/**
 	 *  action to perform when leaving this screen (state change)
@@ -25,7 +27,8 @@ game.PlayScreen = me.ScreenObject.extend({
 	onDestroyEvent: function() {
 		// remove the HUD from the game world
 		me.game.world.removeChild(this.HUD);
-	},
+                me.event.unsubscribe(this.handler);	
+        },
         
         resetPlayer: function(x, y) {
             var player = me.pool.pull("mario", x, y, {});
