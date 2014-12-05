@@ -2,18 +2,18 @@ game.PlayerEntity = me.Entity.extend ({
     init:function(x, y, settings){
         
         this._super(me.Entity, 'init',[x, y, {
-                image:"mario",
-                spritewidth:"128",
-                spriteheight:'128',
-                width: 128,
-                height: 128,
+                image:"leobot",
+                spritewidth:"64",
+                spriteheight:'64',
+                width: 64,
+                height: 64,
                 getShape: function(){
-                return (new me.Rect(0, 0, 128, 128)).toPolygon();
+                return (new me.Rect(0, 0, 64, 64)).toPolygon();
             }
         }]);
     
-        this.renderable.addAnimation("idle", [3]);
-        this.renderable.addAnimation("smallWalk", [8, 9, 10, 11, 12, 13], 80);
+        this.renderable.addAnimation("idle", [39]);
+        this.renderable.addAnimation("smallWalk", [143,144, 145, 146, 147, 148, 149, 150, 151], 159);
         
         this.renderable.setCurrentAnimation("idle");
       
@@ -22,8 +22,10 @@ game.PlayerEntity = me.Entity.extend ({
     
     
     update:function(delta){
+        //check if right button is pressed
         if(me.input.isKeyPressed("right")){
             this.body.vel.x += this.body.accel.x * me.timer.tick;
+            //this line says to unflip the aniimation 
             this.flipX(false);
         }else{
             this.body.vel.x = 0;
@@ -47,7 +49,7 @@ game.PlayerEntity = me.Entity.extend ({
 }
         
         me.collision.check(this, true, this.collideHandeler.bind(this) , true);
-        
+        //ydif is the position between mario and whatever he hits or lands on 
         if(this.body.vel.x !==0){
             if (!this.renderable.isCurrentAnimation("smallWalk")) {
                 this.renderable.setCurrentAnimation("smallWalk");
@@ -98,6 +100,22 @@ game.BadGuy = me.Entity.extend({
                 return (new me.Rect(0, 0, 00, 128)).toPolygon();
             }
         }]);
+    
+    this.spritewidth = 60;
+    var width = settings.width;
+    x = this.pos.x;
+    this.startX = x;
+    this.endX = x + width - this.spritewidth;
+    this.pos.x = x + width - this.spritewidth;
+    this.updateBounds();
+    
+    this.alwaysUpdate = true;
+    
+    this.walkLeft = false;
+    this.alive = true;
+    this.type = "badguy";
+    
+    this.renderable.addAnimation("run", [143, 144, 145, 146, 147, 148, 149, 150, 151], 159);
     },
     update: function(delta){
         
