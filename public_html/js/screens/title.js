@@ -11,11 +11,11 @@ game.TitleScreen = me.ScreenObject.extend({
                     
                     init: function (){
                         this._super(me.Renderable, 'init', [510, 30, me.game.viewport.width,me.game.viewport.height]);
-                        this.font = new me.Font("Arial",46, "white");
+                        this.font = new me.Font("Arial",46, "blue");
                         
                     },
                     draw: function(renderer){
-                        this.font.draw(renderer.getContext(), "MARIO BROS", 450, 130);
+                        this.font.draw(renderer.getContext(), "", 450, 130);
                         this.font.draw(renderer.getContext(), "PRESS ENTER TO PLAY", 250, 530);
                     }
                 })));

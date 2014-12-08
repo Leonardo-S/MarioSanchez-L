@@ -11,7 +11,7 @@ game.PlayerEntity = me.Entity.extend ({
                 return (new me.Rect(0, 0, 64, 64)).toPolygon();
             }
         }]);
-    
+    //this is what helps me how my player looks like.
         this.renderable.addAnimation("idle", [39]);
         this.renderable.addAnimation("smallWalk", [143,144, 145, 146, 147, 148, 149, 150, 151], 159);
         
@@ -47,7 +47,7 @@ game.PlayerEntity = me.Entity.extend ({
         me.audio.play("jump");
     }
 }
-        
+        //these are my controlles for my player
         me.collision.check(this, true, this.collideHandeler.bind(this) , true);
         //ydif is the position between mario and whatever he hits or lands on 
         if(this.body.vel.x !==0){
@@ -97,7 +97,7 @@ game.BadGuy = me.Entity.extend({
                 width: 60,
                 height: 28,
                 getShape: function(){
-                return (new me.Rect(0, 0, 00, 128)).toPolygon();
+                return (new me.Rect(0, 0, 0, 128)).toPolygon();
             }
         }]);
     
@@ -115,11 +115,37 @@ game.BadGuy = me.Entity.extend({
     this.alive = true;
     this.type = "badguy";
     
-    this.renderable.addAnimation("run", [143, 144, 145, 146, 147, 148, 149, 150, 151], 159);
+    this.renderable.addAnimation("run",[0, 1, 2],80 );
+    this.renderable.setCurrentAnimation("run");
+    
+    this.body.setVelocity(4, 6);
     },
+    
     update: function(delta){
+        this.body.update(delta);
+        me.collision.check(this, true, this.collideHandler.bind(this),true);
         
+        if(this.alive){
+            if (this.walkLeft && this.pos.x <=this.startX){
+                this.walkLeft = (false);
+            }else if(!this.walkLeft && this.pos.x >=this.endX){
+                this.walkLeft = true;
+            }
+            this.flipX(!this.walkLeft);
+            this.body.vel.x += (this.walkLeft) ?-this.body.accel.x * me.timer.tick : this.body.accel.x * me.timer.tick;
+            
+        }else {
+            me.world.removeChild(this);
+        }
+        
+        this._super(me.Entity,"update", [delta]);
+        return true;
+    },
+    
+    collideHandler: function(){
+//        if(response.b.type==='BadGuy')
     }
+//    
     
     
 });
