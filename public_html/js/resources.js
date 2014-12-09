@@ -9,7 +9,7 @@ game.resources = [
          {name: "leobot", type:"image", src: "data/img/wizard.png"},
 //         {name: "leobot", type:"image", src: "data/img/custom charactor.png"},
          {name: "title-screen", type:"image", src: "data/img/super mario.png"},
-         {name: "slimey", type:"image", src: "data/img/slime-spritesheet.png"},
+         {name: "slimey", type:"image", src: "data/img/custom charactor.png"},
 	/* Atlases 
 	 * @example
 	 * {name: "example_tps", type: "tps", src: "data/img/example_tps.json"},
