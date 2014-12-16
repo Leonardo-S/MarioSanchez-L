@@ -25,18 +25,21 @@ game.PlayerEntity = me.Entity.extend({
             this.body.vel.x += this.body.accel.x * me.timer.tick;
             //this line says to unflip the aniimation 
             this.flipX(false);
-        } else {
-            this.body.vel.x = 0;
-        }
+//        } else {
+//            this.body.vel.x = 0;
+//        }
         //this checks if a left button is pressed.
-        if (me.input.isKeyPressed("left")) {
+        }else if (me.input.isKeyPressed("left")) {
             this.body.vel.x -= this.body.accel.x * me.timer.tick;
             this.flipX(true);
         } else {
-            this.body.vel.x - 0;
+            this.body.vel.x = 0;
         }
         //this checks if the player jumps
         if (me.input.isKeyPressed('jump')) {
+//            console.log(me.state);
+//            me.state.change(1);
+            //me.state.change(me.state.MENU);
             if (!this.body.jumping && !this.body.falling) {
                 // set current vel to the maximum defined value
                 // gravity will then do the rest
@@ -65,9 +68,11 @@ game.PlayerEntity = me.Entity.extend({
         this._super(me.Entity, "update", [delta]);
         return true;
     },
+    
     collideHandler: function(response) {
         if (response.b.type === 'badguy') {
-            me.state.change(me.state.MENU);
+//            console.log("ouch");
+           me.state.change(me.state.MENU);
         }
     }
 
@@ -142,7 +147,7 @@ game.BadGuy = me.Entity.extend({
         this._super(me.Entity, "update", [delta]);
         return true;
     },
-    collideHandler: function() {
+    collideHandler: function(response) {
 
     }
 

@@ -7,7 +7,7 @@ game.resources = [
          {name: "background-tiles", type:"image", src: "data/img/background-tiles.png"},
          {name: "meta-tiles", type:"image", src: "data/img/meta-tiles.png"},
          {name: "leobot", type:"image", src: "data/img/wizard.png"},
-//         {name: "leobot", type:"image", src: "data/img/custom charactor.png"},
+         {name: "leobot", type:"image", src: "data/img/custom charactor.png"},
          {name: "title-screen", type:"image", src: "data/img/super mario.png"},
          {name: "slimey", type:"image", src: "data/img/custom charactor.png"},
 	/* Atlases 
